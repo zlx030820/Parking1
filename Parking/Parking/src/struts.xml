@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	  <!-- 将对象交给spring管理 -->
+	  <constant name="struts.objectFactory" value="spring" />  
+	  <!-- 编码模式 -->
+	  <constant name="struts.i18n.encoding" value="UTF-8" />
+	  <!-- 设置Struts2应用是否处于开发模式，通常在开发调试阶段设为true,正式上线后可设为false -->
+	  <constant name="struts.devMode" value="true" /> 
+	  <!-- 是否开启动态方法调用-->
+	  <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+	  	   
+	 <package name="user" namespace="/" extends="struts-default,json-default">  
+	  	
+	  	<!-- user配置 -->
+	  	<action name="UserAction" class="UserAction">
+	  			<result name="JSONRESULT" type="json">
+	  				<param name="root">result</param>
+	  			</result> 
+	  			<result name="userList1">m_freeoprator.jsp</result>	
+	  			<result name="userList">m_useroprator.jsp</result>	
+	  			<result name="deletesuccess" type="redirectAction">/UserAction!userList.action</result>		
+	  			<result name="userMessage">m_user_info.jsp</result>
+	  			<result name="userUpdate">userUpdateSuccess.jsp</result>	
+	  			<result name="listAdvice">listAdvice.jsp</result>
+	  			<result name="allAdvices">m_advice.jsp</result>
+	  			<result name="findAllAdvice">m_glide_advice.jsp</result>
+	  			<result name="adviceDelete" type="redirectAction">/UserAction!getAdvice.action</result>
+	  			<result name="UPDATE">/addaccount.jsp</result>
+	  			 <result name="accountUpdate">pinglun.jsp</result> 
+	  			 <result name="Updatefeiyong"  type="redirectAction">/UserAction!userList1.action</result> 	  			 
+	  			 <result name="loginOut">m_lbs.jsp</result>
+	  	</action>
+	  	
+	  	
+	  	
+	  	<action name="ParkAction" class="ParkAction">
+	  			<result name="JSONRESULT" type="json">
+	  				<param name="root">result</param>
+	  			</result> 		
+	  			<result name="parklist">m_listpark.jsp</result>
+	  			<result name="needlogin">m_login.html</result>
+	  			<result name="addPark" type="redirectAction">/ParkAction!ParkList.action</result>
+	  			<result name="UPDATE">/m_updatepark.jsp</result>
+	  			<result name="updatepark" type="redirectAction">/ParkAction!ParkList.action</result>
+	  			<result name="myspace">m_user_park.jsp</result>
+	  			<result name="spacebypark">m_space.jsp</result>
+	  			<result name="spacebypark1">m_space_user.jsp</result>
+	  			<result name="addspace" type="redirectAction">/ParkAction!getMySpace.action</result>
+	  			<result name="outspace">/zhifu.jsp</result>
+	  	</action>
+	  	
+	  
+    </package>
+</struts>
+			
+	  			
+	  
+	  	
+
+

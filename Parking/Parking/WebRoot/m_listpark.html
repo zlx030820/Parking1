@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title>Free CSS template Collect from Cssmoban.com</title>
+<link rel="stylesheet" href="css/m_listpark_style.css" type="text/css"
+	media="all" />
+
+<script type="text/javascript">
+	function deletePark(input, index, id) {
+
+		if (confirm('您确定删除吗？')) {
+
+			var htmlobj = $.ajax({
+				url : "ParkAction!delete.action?id=" + id,
+				type : "POST",
+				data : {
+					"id" : $("#id").val(),
+
+				},
+				async : false
+			});
+			var jsonresult = JSON.parse(htmlobj.responseText);
+			var result = jsonresult.flag;
+			var error = jsonresult.error;
+			if (result) {
+				location.href = "ParkAction!ParkList.action";
+			} else {
+				/* $.MsgBox.Alert("温馨提示：", error);  */
+				swal({
+					title : error,
+					showCancelButton : true,
+					showConfirmButton : false,
+					cancelButtonText : "确认",
+				});
+			}
+		}
+	}
+	function deletePar() {
+		{
+			var id = document.getElementById("id").value
+			window.location.href = "${request.contextPath}/Parking/ParkAction!delete.action?id="
+					+ id;
+		}
+	};
+	function findAllPark() {
+        var htmlobj = $.ajax({
+			url : "ParkAction!ParkList2.action",
+			type : "POST",
+			data : {
+				"username" : $("#username").val()
+			},
+			async : false
+		});
+		var jsonresult = JSON.parse(htmlobj.responseText);
+		var result = jsonresult.parklist;
+	}
+	findAllPark();
+</script>
+</head>
+<body>
+	<!-- Header -->
+	<div id="header">
+		<div class="shell">
+			<!-- Logo + Top Nav -->
+			<div id="top">
+				<h1>
+					<a href="#"><strong>园区停车管理系统</strong> </a>
+				</h1>
+				<div id="top-navigation">
+					<strong style="font-size:14px">欢迎您:</strong> <a href="#">Administrator</a>
+					<span>|</span> <a href="#">帮助</a> <span>|</span> <a href="#">个人资料</a>
+					<span>|</span> <a href="#">退出登录</a>
+				</div>
+			</div>
+			<!-- End Logo + Top Nav -->
+
+			<!-- Main Nav -->
+			<div id="navigation">
+				<ul>
+					<li><a href="ParkAction!ParkList.action" class="active"><span>停车场操作</span> </a>
+					</li>
+					<li><a href="UserAction!userList1.action"><span>费用操作</span> </a>
+					</li>
+					<li><a href="UserAction!userList.action"><span>用户管理</span> </a>
+					</li>
+					<li><a href="UserAction!getAdvice.action"><span>评论管理</span> </a>
+					</li>
+					<li><a href="#"><span>返回首页</span> </a>
+					</li>
+
+				</ul>
+			</div>
+			<!-- End Main Nav -->
+		</div>
+	</div>
+	<!-- End Header -->
+	<div class="copyrights">Collect from</div>
+	<!-- Container -->
+	<div id="container">
+		<div class="shell">
+
+
+			<br />
+			<!-- Main -->
+			<div id="main">
+				<div class="cl">&nbsp;</div>
+
+				<!-- Content -->
+				<div id="content">
+
+					<!-- Box -->
+					<div class="box">
+						<!-- Box Head -->
+						<div class="box-head">
+							<h2 class="left" style="text-align:center">停车场信息</h2>
+
+						</div>
+						<!-- End Box Head -->
+
+						<!-- Table -->
+						<div class="table">
+							<table width="100%" border="0" cellspacing="0" cellpadding="0"
+								style="text-align:center">
+								<tr style="text-align:center">
+									<th style="text-align:center;font-size:14px">停车场名称</th>
+									<th style="text-align:center;font-size:14px">x坐标</th>
+									<th style="text-align:center;font-size:14px">y坐标</th>
+									<th style="text-align:center;font-size:14px">车位数目</th>
+									<th style="text-align:center;font-size:14px">日期</th>
+									<th style="text-align:center;font-size:14px">空余车位</th>
+									<th style="text-align:center;font-size:14px">刪除</th>
+									<th class="ac" style="text-align:center;font-size:14px">更改</th>
+								</tr>
+
+								<c:forEach items="${parklist}" var="bean" varStatus="i">
+
+									<tr>
+										<td><h3>
+												<a href="#">${bean.name}</a>
+											</h3>
+										</td>
+										<td>${bean.x}</td>
+										<td>${bean.y}</td>
+										<td>${bean.spaceNum}</td>
+										<td>${bean.createdtime}</td>
+										<td>${bean.leftNum}</td>
+										<td><a href="#" class="ico del">删除</a>
+										</td>
+										<td><a href="#" class="ico edit">修改</a></td>
+									</tr>
+
+								</c:forEach>
+
+
+
+
+
+							</table>
+						</div>
+						<!-- Table -->
+					</div>
+					<!-- End Box -->
+				</div>
+				<!-- End Content -->
+
+
+				<div class="cl">&nbsp;</div>
+			</div>
+			<!-- Main -->
+		</div>
+	</div>
+	<!-- End Container -->
+
+	<!-- Footer -->
+	<div id="footer">
+		<div class="shell" text-align="center">
+			<span class="left">Copyright &copy; 2017.园区停车管理系统</span> <span
+				class="right"> version 1.0 </span>
+		</div>
+	</div>
+	<!-- End Footer -->
+
+</body>
+</html>

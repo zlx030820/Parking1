@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>登录</title>
+<!-- Custom Theme files -->
+<link href="css/m_style.css" rel="stylesheet" type="text/css" media="all"/>
+<!-- Custom Theme files -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<meta name="keywords" content="Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+
+<script src="js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/jquery.js"></script>
+<script type="text/javascript" src="js/sweetalert.min.js">
+</script>
+<link rel="stylesheet" href="js/sweetalert.css" type="text/css"></link>
+<script type="text/javascript" src="js/sweetalert-dev.js"></script>
+<script>
+	$('#login-button').click(function(event) {
+		event.preventDefault();
+		$('form').fadeOut(500);
+		$('.signin').addClass('form-success');
+	});
+</script>
+<script type="text/javascript">
+	function adminlogin() {
+		var htmlobj = $.ajax({
+			url : "UserAction!adminlogin.action",
+			type : "POST",
+			data : {
+				"username" : $("#username").val(),
+				"password" : $("#password").val(),
+			},
+			async : false
+		});
+		var jsonresult = JSON.parse(htmlobj.responseText);
+		var result = jsonresult.flag;
+		var error = jsonresult.error;
+		if (result) {
+			location.href = "ParkAction!ParkList.action";
+		} else {
+			sweetAlert("登录失败", "用户名或密码错误!", "error");
+		}
+	}
+</script>
+
+</head>
+<body>
+<div class="login">
+	<h2>园区停车管理系统</h2>
+	<div class="login-top">
+		<h1>管理员登录</h1>
+		<form>
+			<input type="text" value="请输入用户名" name="username" id="username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '请输入用户名';}">
+			<input type="password" value="" name="password" id="password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
+	    </form>
+	    <div class="forgot">
+	    	<a href="#">忘记密码</a>
+	    	<input type="submit" value="登录" onclick="adminlogin()" >
+	    </div>
+	</div>
+	<div class="login-bottom">
+	</div>
+</div>	
+<div class="copyright">
+	<p>Copyright &copy; 2017.园区停车管理系统--version 1.0</p>
+</div>
+
+
+</body>
+</html>
